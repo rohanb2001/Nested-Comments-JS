@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #1f2028;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+}
+
+.navbar {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.heading {
+  margin: 1.3rem auto;
+  width: 400px;
+  font-weight: 300;
+  border-bottom: 1px solid silver;
+  letter-spacing: 1.2px;
+}
+
+/* Form Wrapper */
+
+form {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form-content {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1rem auto;
+}
+
+.form-content .input-data {
+  height: 40px;
+  width: 30%;
+  position: relative;
+  margin-bottom: 2rem;
+  margin-right: 1.4rem;
+}
+
+.form-content .input-data input {
+  height: 100%;
+  width: 90%;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  border-bottom: 1px solid #757575;
+  background-color: transparent;
+  color: #fff;
+}
+
+.input-data input::placeholder {
+  color: transparent;
+}
+
+.input-data input:focus::placeholder {
+  color: #b1a5a5;
+  font-size: 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.input-data input:focus ~ label,
+.input-data input:valid ~ label {
+  transform: translateY(-25px);
+  font-size: 12px;
+  color: #fff;
+}
+
+.form-content .input-data label {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  color: silver;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.form-content .input-data .underline {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+}
+
+.input-data .underline::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 90%;
+  background: silver;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.input-data input:focus ~ .underline::before {
+  transform: scaleX(1);
+}
+
+.form-content button {
+  padding: 15px 30px;
+  outline: none;
+  border: none;
+  background: #353741;
+  color: #fff;
+  border-radius: 5px;
+  border: 1px solid #505050;
+  letter-spacing: 1.3px;
+}
+
+.form-content button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+/* Comments */
+.comments {
+  width: 70%;
+  margin: 1.2rem auto;
+}
+
+.comment {
+  position: relative;
+  margin-bottom: 0.7rem;
+  background-color: #353741;
+  padding: 18px 40px;
+  border-radius: 10px;
+}
+
+.comment span {
+  display: inline-block;
+  font-size: 12px;
+  color: #c9c1c1;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  border-bottom: 1px solid silver;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.comment p {
+  font-size: 15px;
+  color: #bbdaf5;
+}
+
+.comment button {
+  position: absolute;
+  display: inline-block;
+  border: none;
+  outline: none;
+  /* border-bottom: 1px solid silver; */
+  background-color: transparent;
+  color: #fff;
+  padding: 5px 6px;
+  letter-spacing: 1.4px;
+  right: 8px;
+  top: 8px;
+}
+
+.comment button:hover {
+  cursor: pointer;
+  color: #ccc;
+}
+
+/* Nested Comments */
+
+.parent-comments .child-comments {
+  margin-top: 0.8rem;
+}
+
+.nested-comment {
+  margin-bottom: 0.7rem;
+  background-color: #484b55;
+  padding: 18px 40px;
+  border-radius: 10px;
+}
+
+.nested-comment span {
+  display: inline-block;
+  font-size: 12px;
+  color: #c9c1c1;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  border-bottom: 1px solid silver;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.nested-comment p {
+  font-size: 15px;
+  color: #bbdaf5;
+}

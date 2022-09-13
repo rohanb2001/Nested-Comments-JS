@@ -4,11 +4,64 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="./main.js" defer></script>
     <link rel="stylesheet" href="./style.css" />
     <title>Nested Comment</title>
   </head>
   <body>
-    Hello World
+    <div class="navbar">
+      <h1 class="heading">Add Nested Comment</h1>
+    </div>
+
+    <div class="form-wrapper">
+      <form class="form">
+        <div class="form-content">
+          <div class="input-data">
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Enter your name"
+            />
+            <div class="underline"></div>
+            <label>Full Name</label>
+          </div>
+          <div class="input-data">
+            <input
+              type="text"
+              name="post"
+              required
+              placeholder="What's up on your mind"
+            />
+            <div class="underline"></div>
+            <label>Post</label>
+          </div>
+          <button class="btn" type="submit">Hit it!</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="comments">
+      <ul class=".parent-comments">
+        <li class="comment">
+          <span>Rohan Banerjee</span>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam,
+            eligendi adipisci? Id, accusamus odit. Pariatur laboriosam
+            consequatur illo veritatis quis.
+          </p>
+          <button class="reply-btn">
+            <i class="fa-solid fa-reply"></i> reply
+          </button>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
