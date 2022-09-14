@@ -128,14 +128,14 @@ form {
 
 /* Comments */
 .comments {
-  width: 70%;
+  width: 66%;
   margin: 1.2rem auto;
 }
 
 .comment {
   position: relative;
   margin-bottom: 0.7rem;
-  background-color: #353741;
+  background-color: #292b33;
   padding: 18px 40px;
   border-radius: 10px;
 }
@@ -177,18 +177,20 @@ form {
 
 /* Nested Comments */
 
-.parent-comments .child-comments {
+.child-comments {
   margin-top: 0.8rem;
+  margin-left: 4rem;
 }
 
-.nested-comment {
+.child-comments .replied-comment {
+  position: relative;
   margin-bottom: 0.7rem;
-  background-color: #484b55;
-  padding: 18px 40px;
+  background-color: #383d50;
+  padding: 10px 30px;
   border-radius: 10px;
 }
 
-.nested-comment span {
+.child-comments .replied-comment span {
   display: inline-block;
   font-size: 12px;
   color: #c9c1c1;
@@ -199,7 +201,16 @@ form {
   text-transform: uppercase;
 }
 
-.nested-comment p {
+.child-comments .replied-comment span:nth-child(2) {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 9px;
+  color: #e9e3e3;
+  border: none;
+}
+
+.child-comments .replied-comment p {
   font-size: 15px;
   color: #bbdaf5;
 }
