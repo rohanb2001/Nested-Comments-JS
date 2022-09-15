@@ -5,6 +5,7 @@ const formInputs = document.querySelectorAll("form input");
 const nestedForm = document.querySelector(".form.nested-form");
 const nestedFormInputs = document.querySelectorAll(".form.nested-form input");
 const parentUlL = document.querySelector(".parent-comments");
+const childUlL = document.querySelector(".child-comments");
 const replyBtn = document.querySelector("button .reply-btn");
 const modalContainer = document.querySelector(".modal-container");
 
@@ -19,23 +20,33 @@ let state = {
 // Functions
 function submitForm(e) {
   e.preventDefault();
-  if (e.target.classList.contains("form")) {
+  if (e.target.classList.contains("parent-form")) {
     state.todos.push(formValues);
     showUI();
     clearUI();
-    console.log(state.todos);
+    formValues = {};
   } else if (e.target.classList.contains("nested-form")) {
+    modalContainer.classList.remove("active");
+    addNestedComments();
+    showUI();
+    showNestedComments();
   }
-  // console.log(nestedCommentValues);
 }
 
 function getFormValues(e) {
-  formValues = {
-    ...formValues,
-    [e.target.name]: e.target.value,
-    id: uuidv4(),
-    nestedComments: [],
-  };
+  if (e.target.classList.contains("parent-input")) {
+    formValues = {
+      ...formValues,
+      [e.target.name]: e.target.value,
+      id: uuidv4(),
+      nestedComments: [],
+    };
+  } else if (e.target.classList.contains("child-input")) {
+    nestedCommentValues = {
+      ...nestedCommentValues,
+      [e.target.name]: e.target.value,
+    };
+  }
 }
 
 function showUI() {
@@ -63,6 +74,40 @@ function showUI() {
   }
 }
 
+function showNestedComments() {
+  state.todos.forEach((item) => {
+    if (item.id === state.commentID) {
+      if (item.nestedComments.length) {
+        let str = item.nestedComments.reduce((acc, curr) => {
+          return (
+            acc +
+            `
+            <li class="replied-comment">
+          <span>${curr.replyPerson}</span>
+          <span class="replied">Replied</span>
+          <p>
+            ${curr.reply}
+          </p>
+        </li>
+            `
+          );
+        }, "");
+        childUlL.innerHTML = str;
+      } else {
+        childUlL.innerHTML = "";
+      }
+    }
+  });
+}
+
+function addNestedComments() {
+  state.todos.forEach((item) => {
+    if (item.id === state.commentID) {
+      item.nestedComments.push(nestedCommentValues);
+    }
+  });
+}
+
 function clearUI() {
   formInputs.forEach((item) => (item.value = ""));
 }
@@ -86,5 +131,5 @@ form.addEventListener("submit", submitForm);
 form.addEventListener("change", getFormValues);
 parentUlL.addEventListener("click", openModal);
 modalContainer.addEventListener("click", closeModal);
-
-// nestedForm.addEventListener("submit", submit);
+nestedForm.addEventListener("submit", submitForm);
+nestedForm.addEventListener("change", getFormValues);
