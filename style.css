@@ -215,12 +215,15 @@ form {
   color: #bbdaf5;
 }
 
+.form-content .btn {
+  cursor: pointer;
+}
+
 .modal-container {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -232,9 +235,9 @@ form {
 .modal {
   background-color: #353741;
   width: 900px;
-  /* max-width: 100%; */
   padding: 50px 80px;
   border-radius: 5px;
+  position: relative;
 }
 
 .modal .form-content {
