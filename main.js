@@ -4,8 +4,6 @@ const form = document.querySelector(".form");
 const formInputs = document.querySelectorAll("form input");
 const nestedForm = document.querySelector(".form.nested-form");
 const parentUL = document.querySelector(".parent-comments");
-const childUlL = document.querySelector(".child-comments");
-const replyBtn = document.querySelector("button .reply-btn");
 const modalContainer = document.querySelector(".modal-container");
 
 let formValues = {};
@@ -28,7 +26,6 @@ function submitForm(e) {
     modalContainer.classList.remove("active");
     addNestedComments();
     showUI();
-    showNestedComments();
     nestedCommentValues = {};
   }
 }
@@ -55,7 +52,7 @@ function showUI() {
       return (
         acc +
         `
-        <li class="comment" data-id=${curr.id}>
+         <li class="comment" data-id=${curr.id}>
           <span>${curr.name}</span>
           <p>
             ${curr.post}
@@ -63,6 +60,23 @@ function showUI() {
           <button class="reply-btn">
             <i class="fa-solid fa-reply"></i> reply
           </button>
+
+          <ul class="child-comments">
+          ${curr.nestedComments.reduce((acc, curr) => {
+            return (
+              acc +
+              `
+                <li class="replied-comment">
+              <span>${curr.replyPerson}</span>
+              <span class="replied">Replied</span>
+              <p>
+                ${curr.reply}
+              </p>
+            </li>
+                `
+            );
+          }, "")}
+          </ul>
         </li>
         `
       );
@@ -74,44 +88,12 @@ function showUI() {
   }
 }
 
-function showNestedComments() {
-  let str = "";
-  state.todos.forEach((item) => {
-    if (item.id === state.commentID) {
-      if (item.nestedComments.length) {
-        item.nestedComments.reduce((acc, curr) => {
-          return acc + createNestedComment(curr);
-        }, "");
-      } else {
-        createNestedComment(str);
-      }
-    }
-  });
-}
-
 function addNestedComments() {
   state.todos.forEach((item) => {
     if (item.id === state.commentID) {
       item.nestedComments.push(nestedCommentValues);
     }
   });
-}
-
-function createNestedComment(curr) {
-  const childUL = document.createElement("ul");
-  childUL.className = "child-comments";
-  const childLI = document.createElement("li");
-  childLI.className = "replied-comment";
-  const firstSpan = document.createElement("span");
-  const secondSpan = document.createElement("span");
-  firstSpan.innerText = `${curr.replyPerson}`;
-  secondSpan.className = "replied";
-  secondSpan.innerText = "Replied";
-  const para = document.createElement("p");
-  para.innerText = `${curr.reply}`;
-  childLI.append(firstSpan, secondSpan, para);
-  childUL.append(childLI);
-  parentUL.append(childUL);
 }
 
 function clearUI() {
@@ -122,7 +104,6 @@ function openModal(e) {
   if (e.target.classList.contains("reply-btn")) {
     modalContainer.classList.add("active");
     state.commentID = e.target.parentElement.getAttribute("data-id");
-    console.log(state.commentID);
   }
 }
 
