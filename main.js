@@ -3,8 +3,7 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 const form = document.querySelector(".form");
 const formInputs = document.querySelectorAll("form input");
 const nestedForm = document.querySelector(".form.nested-form");
-const nestedFormInputs = document.querySelectorAll(".form.nested-form input");
-const parentUlL = document.querySelector(".parent-comments");
+const parentUL = document.querySelector(".parent-comments");
 const childUlL = document.querySelector(".child-comments");
 const replyBtn = document.querySelector("button .reply-btn");
 const modalContainer = document.querySelector(".modal-container");
@@ -30,6 +29,7 @@ function submitForm(e) {
     addNestedComments();
     showUI();
     showNestedComments();
+    nestedCommentValues = {};
   }
 }
 
@@ -68,33 +68,22 @@ function showUI() {
       );
     }, "");
 
-    parentUlL.innerHTML = str;
+    parentUL.innerHTML = str;
   } else {
-    parentUlL.innerHTML = "";
+    parentUL.innerHTML = "";
   }
 }
 
 function showNestedComments() {
+  let str = "";
   state.todos.forEach((item) => {
     if (item.id === state.commentID) {
       if (item.nestedComments.length) {
-        let str = item.nestedComments.reduce((acc, curr) => {
-          return (
-            acc +
-            `
-            <li class="replied-comment">
-          <span>${curr.replyPerson}</span>
-          <span class="replied">Replied</span>
-          <p>
-            ${curr.reply}
-          </p>
-        </li>
-            `
-          );
+        item.nestedComments.reduce((acc, curr) => {
+          return acc + createNestedComment(curr);
         }, "");
-        childUlL.innerHTML = str;
       } else {
-        childUlL.innerHTML = "";
+        createNestedComment(str);
       }
     }
   });
@@ -106,6 +95,23 @@ function addNestedComments() {
       item.nestedComments.push(nestedCommentValues);
     }
   });
+}
+
+function createNestedComment(curr) {
+  const childUL = document.createElement("ul");
+  childUL.className = "child-comments";
+  const childLI = document.createElement("li");
+  childLI.className = "replied-comment";
+  const firstSpan = document.createElement("span");
+  const secondSpan = document.createElement("span");
+  firstSpan.innerText = `${curr.replyPerson}`;
+  secondSpan.className = "replied";
+  secondSpan.innerText = "Replied";
+  const para = document.createElement("p");
+  para.innerText = `${curr.reply}`;
+  childLI.append(firstSpan, secondSpan, para);
+  childUL.append(childLI);
+  parentUL.append(childUL);
 }
 
 function clearUI() {
@@ -129,7 +135,7 @@ function closeModal(e) {
 // Add EvenetListiners
 form.addEventListener("submit", submitForm);
 form.addEventListener("change", getFormValues);
-parentUlL.addEventListener("click", openModal);
+parentUL.addEventListener("click", openModal);
 modalContainer.addEventListener("click", closeModal);
 nestedForm.addEventListener("submit", submitForm);
 nestedForm.addEventListener("change", getFormValues);
